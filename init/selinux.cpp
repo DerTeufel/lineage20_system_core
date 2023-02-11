@@ -100,6 +100,8 @@ namespace init {
 
 namespace {
 
+bool force_permissive = true;
+
 enum EnforcingStatus { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
 
 EnforcingStatus StatusFromProperty() {
@@ -124,9 +126,9 @@ EnforcingStatus StatusFromProperty() {
 
 bool IsEnforcing() {
     if (ALLOW_PERMISSIVE_SELINUX) {
-        return StatusFromProperty() == SELINUX_ENFORCING;
+        return (StatusFromProperty() == SELINUX_ENFORCING && !force_permissive);
     }
-    return true;
+    return !force_permissive;
 }
 
 // Forks, executes the provided program in the child, and waits for the completion in the parent.
