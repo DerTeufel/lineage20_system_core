@@ -100,7 +100,7 @@ namespace init {
 
 namespace {
 
-bool force_permissive = true;
+bool force_permissive = false;
 
 enum EnforcingStatus { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
 
